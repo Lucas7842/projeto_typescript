@@ -1,22 +1,53 @@
 export default class Slide {
   container: Element;
-  elements: Element[];
+  slides: Element[];
   controls: Element;
   time: number;
+  index: number;
+  slide: Element;
   constructor(
     container: Element,
-    elements: Element[],
+    slides: Element[],
     controls: Element,
     time: number = 5000
   ) {
     this.container = container;
-    this.elements = elements;
+    this.slides = slides;
     this.controls = controls;
     this.time = time;
 
-    console.log(this.container);
-    console.log(this.elements);
-    console.log(this.controls);
-    console.log(this.time);
+    this.index = 0;
+    this.slide = this.slides[this.index];
+
+    this.init();
+
   }
+  hide(el: Element){
+    el.classList.remove("active");
+  }
+  show(index:number){
+    this.index - index;
+    this.slide = this.slides[this.index];
+    this.slides.forEach((el) => this.hide(el));
+    this.slide.classList.add('active');
+  }
+  prev(){
+    this.show(this.index - 1);
+  }
+next(){
+  this.show(this.index + 1);
+}
+private addControls(){
+  const prevButton = document.createElement("button");
+  const nextButton = document.createElement("button");
+  this.controls.appendChild(prevButton);
+  this.controls.appendChild(nextButton);
+
+  prevButton.addEventListener("pointerup", () => this.prev());
+  nextButton.addEventListener("pointerup", () => this.next());
+}
+private init(){
+  this.addControls();
+  this.show(this.index);
+}
 }
