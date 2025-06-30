@@ -40,6 +40,8 @@ next(){
 private addControls(){
   const prevButton = document.createElement("button");
   const nextButton = document.createElement("button");
+  prevButton.innerText = "Slide Anterior";
+  nextButton.innerText = "Próximo Slide";
   this.controls.appendChild(prevButton);
   this.controls.appendChild(nextButton);
 
