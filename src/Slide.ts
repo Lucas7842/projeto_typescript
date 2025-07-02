@@ -30,12 +30,19 @@ export default class Slide {
     this.slide = this.slides[this.index];
     this.slides.forEach((el) => this.hide(el));
     this.slide.classList.add('active');
+    this.auto(this.time);
   }
+  auto(time: number){
+    setTimeout(() => this.next(),time);
+  }
+
   prev(){
-    this.show(this.index - 1);
+    const prev = this.index > 0 ? this.index - 1 : this.slides.length - 1;
+    this.show(prev);
   }
 next(){
-  this.show(this.index + 1);
+  const next = (this.index + 1) < this.slides.length ? this.index + 1 : 0;
+  this.show(next);
 }
 private addControls(){
   const prevButton = document.createElement("button");
